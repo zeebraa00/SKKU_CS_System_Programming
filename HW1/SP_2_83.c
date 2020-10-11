@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int float_ge(float x, float y) {
     unsigned ux = f2u(x);
     unsigned uy = f2u(y);
