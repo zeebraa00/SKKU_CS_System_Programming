@@ -7,8 +7,5 @@ int float_ge(float x, float y) {
     unsigned sx = ux >> 31;
     unsigned sy = uy >> 31;
 
-     return (!(uy << 1 ^ ~0) && !(ux << 1 ^ ~0)) || /* uy = ux = +0 or -0 */
-            (!sy && sx) ||                          /* sy >= 0, sx < 0    */
-            (!sy && !sx && uy >= ux) ||             /* y >= 0, x >= 0     */
-            (sy && sx && uy <= ux);                 /* y < 0, x < 0       */
+    return ((!sx&&sy)||(!sx&&!sy&&ux>=uy)||(sx&&sy&&ux<=uy)||(ux<<1==0&&uy<<1==0));
 }
