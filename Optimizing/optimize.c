@@ -2,7 +2,9 @@
 #include <string.h>
 #include <time.h>
 
-#define Digit 100000
+#define Digit 50000
+
+char zero[Digit] = {'0', };
 
 char temp[Digit]; // input 적절하게 초기화할 때 사용할 것
 char output[Digit] = {'0', }; // 최종 연산 결과
@@ -20,6 +22,7 @@ void initOutput()
 	{
 		output[i] = '0';
 	}
+
 	output[Digit - 1] = '\0';
 }
 
@@ -32,8 +35,7 @@ void initTmp()
 	tmp[Digit - 1] = '\0';
 }
 
-void initTmp2()
-{
+void initTmp2() {
 	for (int i = 0; i < Digit-1; i++)
 	{
 		tmp_2[i] = '0';
@@ -54,8 +56,8 @@ void Add(char input1[], char input2[])
 	// 큰 수 더하기
 	for (int i = Digit - 2; i > 0; i--)
 	{
-		temp1 = (input1[i] - '0');
-		temp2 = (input2[i] - '0');
+		temp1 = input1[i] - '0';
+		temp2 = input2[i] - '0';
 		sum = temp1 + temp2 + carry;
 		carry = sum / 10;
 		sum = sum % 10;
@@ -63,8 +65,7 @@ void Add(char input1[], char input2[])
 	}
 }
 
-void Product(char input1[], char input2[])
-{
+void Product(char input1[], char input2[]) {
 	int sum;
 	int carry = 0;
 	int temp1;
@@ -100,7 +101,6 @@ void Product(char input1[], char input2[])
 		tmp[Digit - 1] = '\0';
 	}
 
-	//printf("곱셈결과 : %s\n", tmp_2);
 	for (int i = 0; i < Digit; i++)
 	{
 		output[i] = tmp_2[i];
@@ -167,16 +167,14 @@ void writeMultResult()
 	fclose(fp);
 }
 
-int length1()
-{
+int length1() {
 	int len;
 	for (len = 0; input1[len] != '\0'; len++); // len이 자릿수 의미
 
 	return len;
 }
 
-void initInput1()
-{
+void initInput1() {
 	int len;
 	// len이 자릿수 의미
 	len = length1();
@@ -197,16 +195,14 @@ void initInput1()
 	}
 }
 
-int length2()
-{
+int length2() {
 	int len;
 	for (len = 0; input2[len] != '\0'; len++); // len이 자릿수 의미
 
 	return len;
 }
 
-void initInput2()
-{
+void initInput2() {
 	int len;
 	// len이 자릿수 의미
 	len = length2();
@@ -227,15 +223,13 @@ void initInput2()
 	}
 }
 
-void initiateOutput()
-{
+void initiateOutput() {
 	for (int i=0; i<Digit; i++) {
 		output[i]='0';
 	}
 }
 
-void addBigInt()
-{
+void addBigInt() {
 	Add(input1, input2);
 	for (length = 0; output[length] == '0'; length++);
 	if (length == Digit - 1)
@@ -250,16 +244,14 @@ void addBigInt()
 	}
 }
 
-int lengthOutput()
-{
+int lengthOutput() {
 	int length;
 	for (length = 0; output[length] == '0'; length++);
 
 	return length;
 }
 
-void multBigInt()
-{
+void multBigInt() {
 	Product(input1, input2);
 
 	length = lengthOutput();
