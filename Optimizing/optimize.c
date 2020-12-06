@@ -4,6 +4,8 @@
 
 #define Digit 100000
 
+char zero[Digit];
+
 char temp[Digit]; // input 적절하게 초기화할 때 사용할 것
 char output[Digit] = {'0', }; // 최종 연산 결과
 char tmp[Digit] = {'0', }; // 연산 결과 처리할 때 사용
@@ -16,29 +18,32 @@ char file_buff[Digit];
 
 void initOutput()
 {
-	for (int i = 0; i < Digit - 1; i++)
-	{
-		output[i] = '0';
-	}
-	output[Digit - 1] = '\0';
+	// for (int i = 0; i < Digit - 1; i++)
+	// {
+	// 	output[i] = '0';
+	// }
+	// output[Digit - 1] = '\0';
+	strcpy(output, zero);
 }
 
 void initTmp()
 {
-	for (int i = 0; i < Digit-1; i++)
-	{
-		tmp[i] = '0';
-	}
-	tmp[Digit - 1] = '\0';
+	// for (int i = 0; i < Digit-1; i++)
+	// {
+	// 	tmp[i] = '0';
+	// }
+	// tmp[Digit - 1] = '\0';
+	strcpy(tmp, zero);
 }
 
 void initTmp2()
 {
-	for (int i = 0; i < Digit-1; i++)
-	{
-		tmp_2[i] = '0';
-	}
-	tmp_2[Digit - 1] = '\0';
+	// for (int i = 0; i < Digit-1; i++)
+	// {
+	// 	tmp_2[i] = '0';
+	// }
+	// tmp_2[Digit - 1] = '\0';
+	strcpy(tmp_2,zero);
 }
 
 void Add(char input1[], char input2[])
@@ -54,9 +59,9 @@ void Add(char input1[], char input2[])
 	// 큰 수 더하기
 	for (int i = Digit - 2; i > 0; i--)
 	{
-		temp1 = (input1[i] - '0');
-		temp2 = (input2[i] - '0');
-		sum = temp1 + temp2 + carry;
+		// temp1 = (input1[i] - '0');
+		// temp2 = (input2[i] - '0');
+		sum = (input1[i] - '0') + (input2[i] - '0') + carry;
 		carry = sum / 10;
 		sum = sum % 10;
 		output[i] = (sum + '0');
@@ -80,31 +85,34 @@ void Product(char input1[], char input2[])
 	{
 		for (int j = Digit-2; j > 0; j--)
 		{
-			temp1 = input1[i] - '0';
-			temp2 = input2[j] - '0';
-			sum = temp1 * temp2 + carry;
+			// temp1 = input1[i] - '0';
+			// temp2 = input2[j] - '0';
+			sum = (input1[i] - '0') * (input2[j] - '0') + carry;
 			carry = sum / 10;
 			sum = sum % 10;
 			tmp[j-(Digit-2-i)] = sum+'0';
 		}
 		Add(tmp_2, tmp);
-		for (int i = 0; i < Digit; i++)
-		{
-			tmp_2[i] = output[i];
-		}
+		// for (int i = 0; i < Digit; i++)
+		// {
+		// 	tmp_2[i] = output[i];
+		// }
+		strcpy(tmp_2,output);
 		// tmp 초기화
-		for (int i = 0; i < Digit; i++)
-		{
-			tmp[i] = '0';
-		}
-		tmp[Digit - 1] = '\0';
+		// for (int i = 0; i < Digit; i++)
+		// {
+		// 	tmp[i] = '0';
+		// }
+		// tmp[Digit - 1] = '\0';
+		strcpy(tmp,zero);
 	}
 
 	//printf("곱셈결과 : %s\n", tmp_2);
-	for (int i = 0; i < Digit; i++)
-	{
-		output[i] = tmp_2[i];
-	}
+	// for (int i = 0; i < Digit; i++)
+	// {
+	// 	output[i] = tmp_2[i];
+	// }
+	strcpy(output,tmp_2);
 }
 
 void getInput1(FILE *fp)
@@ -169,10 +177,11 @@ void writeMultResult()
 
 int length1()
 {
-	int len;
-	for (len = 0; input1[len] != '\0'; len++); // len이 자릿수 의미
+	// int len;
+	// for (len = 0; input1[len] != '\0'; len++); // len이 자릿수 의미
 
-	return len;
+	// return len;
+	return strlen(input1);
 }
 
 void initInput1()
@@ -185,6 +194,9 @@ void initInput1()
 	{
 		temp[i] = '0'; // 앞을 다 0으로 채우기
 	}
+	// zero[Digit-len-1] = '\0';
+	// strcpy(temp, zero);
+	// zero[Digit-len-1] = '0';
 
 	for (int i = Digit-len-1 ; i < Digit ; i++)
 	{
@@ -195,14 +207,16 @@ void initInput1()
 	{
 		input1[i] = temp[i]; // temp에 있던거 input1으로 복붙
 	}
+	// strcpy(input1,temp);
 }
 
 int length2()
 {
-	int len;
-	for (len = 0; input2[len] != '\0'; len++); // len이 자릿수 의미
+	// int len;
+	// for (len = 0; input2[len] != '\0'; len++); // len이 자릿수 의미
 
-	return len;
+	// return len;
+	return strlen(input2);
 }
 
 void initInput2()
@@ -215,6 +229,9 @@ void initInput2()
 	{
 		temp[i] = '0'; // 앞을 다 0으로 채우기
 	}
+	// zero[Digit-len-1] = '\0';
+	// strcpy(temp, zero);
+	// zero[Digit-len-1] = '0';
 
 	for (int i = Digit - len - 1; i < Digit; i++)
 	{
@@ -225,13 +242,15 @@ void initInput2()
 	{
 		input2[i] = temp[i]; // temp에 있던거 input2으로 복붙
 	}
+	// strcpy(input2,temp);
 }
 
 void initiateOutput()
 {
-	for (int i=0; i<Digit; i++) {
-		output[i]='0';
-	}
+// 	for (int i=0; i<Digit; i++) {
+// 		output[i]='0';
+// 	}
+	strcpy(output,zero);
 }
 
 void addBigInt()
@@ -281,6 +300,15 @@ int main()
 	FILE *fp;
     clock_t start, finish;
     start = clock();
+
+	for (int i=0; i<Digit-1; i++) {
+		zero[i]='0';
+	}
+	zero[Digit-1]='\0';
+
+	output[Digit-1]='\0';
+	tmp[Digit-1]='\0';
+	tmp_2[Digit-1]='\0';
 
 	fp = fopen("input.txt","r");
     readFile(fp);
